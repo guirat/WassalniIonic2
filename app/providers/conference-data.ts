@@ -6,7 +6,7 @@ import {UserData} from './user-data';
 @Injectable()
 export class ConferenceData {
   data: any;
-
+  stationData:any;
   constructor(private http: Http, private user: UserData) {}
 
   load() {
@@ -14,7 +14,6 @@ export class ConferenceData {
       // already loaded data
       return Promise.resolve(this.data);
     }
-
     // don't have the data yet
     return new Promise(resolve => {
       // We're using Angular Http provider to request the data,
@@ -25,6 +24,21 @@ export class ConferenceData {
         // and save the data for later reference
         this.data = this.processData(res.json());
         resolve(this.data);
+      });
+    });
+  }
+  loadMap() {
+    if (this.stationData) {
+      // already loaded data
+      return Promise.resolve(this.stationData);
+    }
+    // don't have the data yet
+    return new Promise(resolve => {
+      // We're using Angular Http provider to request the data,
+      // then on the response it'll map the JSON data to a parsed JS object.
+      // Next we process the data and resolve the promise with the new data.
+      this.http.get('data/StationBus.json').subscribe(res => {
+        resolve(this.stationData);
       });
     });
   }

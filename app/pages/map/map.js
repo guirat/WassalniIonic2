@@ -10,15 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var conference_data_1 = require('../../providers/conference-data');
+var ionic_native_1 = require('ionic-native');
 var MapPage = (function () {
     function MapPage(confData) {
         this.confData = confData;
     }
     MapPage.prototype.ionViewLoaded = function () {
+        var lat;
+        var lng;
+        var options = { timeout: 10000, enableHighAccuracy: true };
+        ionic_native_1.Geolocation.getCurrentPosition(options).then(function (position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+        }, function (err) {
+            console.log('errrrrrrreur');
+        });
+        var currlat = lat;
+        var currlat = lng;
+        var curentLocation = new google.maps.LatLng(lat, lng);
+        var myLatlng = new google.maps.LatLng(lat, lng);
         this.confData.getMap().then(function (mapData) {
             var mapEle = document.getElementById('map');
             var map = new google.maps.Map(mapEle, {
-                center: mapData.find(function (d) { return d.center; }),
+                center: myLatlng,
                 zoom: 16
             });
             mapData.forEach(function (markerData) {
@@ -27,6 +41,7 @@ var MapPage = (function () {
                 });
                 var marker = new google.maps.Marker({
                     position: markerData,
+                    icon: 'img/BusStationMarker.png',
                     map: map,
                     title: markerData.name
                 });
