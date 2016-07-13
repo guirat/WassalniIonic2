@@ -1,13 +1,17 @@
 import {Component} from '@angular/core';
-import {Page} from 'ionic-angular';
+// import {Page} from 'ionic-angular';
 import {ConferenceData} from '../../providers/conference-data';
 import {Geolocation} from 'ionic-native';
+import {App, Page, Modal, Alert, NavController, ItemSliding, List} from 'ionic-angular';
+import {ScheduleFilterPage} from '../schedule-filter/schedule-filter';
+
 
 @Component({
   templateUrl: 'build/pages/map/map.html'
 })
 export class MapPage {
-  constructor(private confData: ConferenceData) {}
+  excludeTracks = [];
+  constructor(private confData: ConferenceData, private nav: NavController) {}
 
   ionViewLoaded() {
   
@@ -15,6 +19,7 @@ export class MapPage {
       var currentPosition:google.maps.LatLng;
      let mapEle = document.getElementById('map');
      let map = new google.maps.Map(mapEle, {
+       //center: new google.maps.LatLng(34.7568479,10.712911),
         zoom: 16
       });
 
@@ -62,5 +67,18 @@ export class MapPage {
       });
 
     });
+  }
+
+  presentFilter() {
+    let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
+    this.nav.present(modal);
+
+    modal.onDismiss((data: any[]) => {
+      if (data) {
+        this.excludeTracks = data;
+        //this.updateSchedule();
+      }
+    });
+
   }
 }

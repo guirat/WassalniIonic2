@@ -28,7 +28,7 @@ class ConferenceApp {
   // the login page disables the left menu
   appPages: PageObj[] = [
     { title: 'Schedule', component: TabsPage, icon: 'calendar' },
-    { title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts' },
+    { title: 'Favorite', component: TabsPage, index: 1, icon: 'heart-outline' },
     { title: 'About', component: TabsPage, index: 3, icon: 'information-circle' },
   ];
   loggedInPages: PageObj[] = [
@@ -39,7 +39,7 @@ class ConferenceApp {
     { title: 'Login', component: LoginPage, icon: 'log-in' },
     { title: 'Signup', component: SignupPage, icon: 'person-add' }
   ];
-  rootPage: any = AccountPage;
+  rootPage: any = SignupPage;
 
   constructor(
     private events: Events,
