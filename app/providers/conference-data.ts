@@ -38,7 +38,7 @@ export class ConferenceData {
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
       this.http.get('data/StationBus.json').subscribe(res => {
-        resolve(this.stationData);
+        resolve(res.json());
       });
     });
   }
@@ -110,7 +110,6 @@ export class ConferenceData {
         });
 
       });
-
       return day;
     });
   }
@@ -171,7 +170,7 @@ export class ConferenceData {
   }
 
   getMap() {
-    return this.load().then(data => {
+    return this.loadMap().then(data => {
       return data.map;
     });
   }

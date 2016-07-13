@@ -47,14 +47,14 @@ export class MapPage {
     
       mapData.forEach(markerData => {
         let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.name}</h5>`
+          content: `<h5>${markerData.STOP_NAME}</h5>`
         });
 
         let marker = new google.maps.Marker({
-          position: markerData,
+          position: new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON),
           icon:'img/BusStationMarker.png',
           map: map,
-          title: markerData.name
+          title: markerData.STOP_NAME
         });
 
         marker.addListener('click', () => {
