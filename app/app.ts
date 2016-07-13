@@ -39,7 +39,7 @@ class ConferenceApp {
     { title: 'Login', component: LoginPage, icon: 'log-in' },
     { title: 'Signup', component: SignupPage, icon: 'person-add' }
   ];
-  rootPage: any = LoginPage;
+  rootPage: any = AccountPage;
 
   constructor(
     private events: Events,

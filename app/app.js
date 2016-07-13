@@ -29,7 +29,6 @@ var ConferenceApp = (function () {
         this.appPages = [
             { title: 'Schedule', component: tabs_1.TabsPage, icon: 'calendar' },
             { title: 'Speakers', component: tabs_1.TabsPage, index: 1, icon: 'contacts' },
-            { title: 'Map', component: tabs_1.TabsPage, index: 2, icon: 'map' },
             { title: 'About', component: tabs_1.TabsPage, index: 3, icon: 'information-circle' },
         ];
         this.loggedInPages = [
@@ -40,7 +39,7 @@ var ConferenceApp = (function () {
             { title: 'Login', component: login_1.LoginPage, icon: 'log-in' },
             { title: 'Signup', component: signup_1.SignupPage, icon: 'person-add' }
         ];
-        this.rootPage = login_1.LoginPage;
+        this.rootPage = account_1.AccountPage;
         // Call any initial plugins when ready
         platform.ready().then(function () {
             ionic_native_1.StatusBar.styleDefault();
