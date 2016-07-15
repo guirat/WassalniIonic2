@@ -7,6 +7,7 @@ import {AccountPage} from './pages/account/account';
 import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
+import {AboutPage} from './pages/about/about';
 
 interface PageObj {
   title: string;
@@ -29,7 +30,7 @@ class ConferenceApp {
   appPages: PageObj[] = [
     { title: 'Schedule', component: TabsPage, icon: 'calendar' },
     { title: 'Favorite', component: TabsPage, index: 1, icon: 'heart-outline' },
-    { title: 'About', component: TabsPage, index: 3, icon: 'information-circle' },
+    { title: 'About', component: AboutPage, icon: 'information-circle' },
   ];
   loggedInPages: PageObj[] = [
     { title: 'Account', component: AccountPage, icon: 'person' },
@@ -114,6 +115,4 @@ class ConferenceApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(ConferenceApp, [ConferenceData, UserData], {
-  tabbarPlacement: 'bottom'
-});
+ionicBootstrap(ConferenceApp, [ConferenceData, UserData],{tabbarPlacement: 'bottom'});

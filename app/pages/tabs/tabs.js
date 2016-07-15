@@ -11,16 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var schedule_1 = require('../schedule/schedule');
-var speaker_list_1 = require('../speaker-list/speaker-list');
+var favorite_1 = require('../favorite/favorite');
 var map_1 = require('../map/map');
-var about_1 = require('../about/about');
 var TabsPage = (function () {
     function TabsPage(navParams) {
         // set the root pages for each tab
         this.tab1Root = schedule_1.SchedulePage;
-        this.tab2Root = speaker_list_1.SpeakerListPage;
+        this.tab2Root = favorite_1.FavoritePage;
         this.tab3Root = map_1.MapPage;
-        this.tab4Root = about_1.AboutPage;
         this.mySelectedIndex = navParams.data.tabIndex || 0;
     }
     TabsPage = __decorate([

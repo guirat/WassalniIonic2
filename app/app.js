@@ -17,6 +17,7 @@ var account_1 = require('./pages/account/account');
 var tabs_1 = require('./pages/tabs/tabs');
 var login_1 = require('./pages/login/login');
 var signup_1 = require('./pages/signup/signup');
+var about_1 = require('./pages/about/about');
 var ConferenceApp = (function () {
     function ConferenceApp(events, userData, menu, platform, confData) {
         var _this = this;
@@ -28,8 +29,8 @@ var ConferenceApp = (function () {
         // the login page disables the left menu
         this.appPages = [
             { title: 'Schedule', component: tabs_1.TabsPage, icon: 'calendar' },
-            { title: 'Speakers', component: tabs_1.TabsPage, index: 1, icon: 'contacts' },
-            { title: 'About', component: tabs_1.TabsPage, index: 3, icon: 'information-circle' },
+            { title: 'Favorite', component: tabs_1.TabsPage, index: 1, icon: 'heart-outline' },
+            { title: 'About', component: about_1.AboutPage, icon: 'information-circle' },
         ];
         this.loggedInPages = [
             { title: 'Account', component: account_1.AccountPage, icon: 'person' },
@@ -39,7 +40,7 @@ var ConferenceApp = (function () {
             { title: 'Login', component: login_1.LoginPage, icon: 'log-in' },
             { title: 'Signup', component: signup_1.SignupPage, icon: 'person-add' }
         ];
-        this.rootPage = account_1.AccountPage;
+        this.rootPage = signup_1.SignupPage;
         // Call any initial plugins when ready
         platform.ready().then(function () {
             ionic_native_1.StatusBar.styleDefault();
@@ -107,6 +108,4 @@ var ConferenceApp = (function () {
 // Place the tabs on the bottom for all platforms
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
-ionic_angular_1.ionicBootstrap(ConferenceApp, [conference_data_1.ConferenceData, user_data_1.UserData], {
-    tabbarPlacement: 'bottom'
-});
+ionic_angular_1.ionicBootstrap(ConferenceApp, [conference_data_1.ConferenceData, user_data_1.UserData], { tabbarPlacement: 'bottom' });

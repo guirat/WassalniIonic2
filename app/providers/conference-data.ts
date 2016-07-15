@@ -55,14 +55,14 @@ export class ConferenceData {
       day.groups.forEach(group => {
         // loop through each session in the timeline group
         group.sessions.forEach(session => {
-          this.processSession(data, session);
+          //this.processSession(data, session);
         });
       });
     });
 
     return data;
   }
-
+/*
   processSession(data, session) {
     // loop through each speaker and load the speaker data
     // using the speaker name as the key
@@ -85,7 +85,7 @@ export class ConferenceData {
         }
       });
     }
-  }
+  }*/
 
   getTimeline(dayIndex, queryText = '', excludeTracks = [], segment = 'all') {
     return this.load().then(data => {
@@ -153,9 +153,9 @@ export class ConferenceData {
     session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
   }
 
-  getSpeakers() {
+  getFavorites() {
     return this.load().then(data => {
-      return data.speakers.sort((a, b) => {
+      return data.favorites.sort((a, b) => {
         let aName = a.name.split(' ').pop();
         let bName = b.name.split(' ').pop();
         return aName.localeCompare(bName);

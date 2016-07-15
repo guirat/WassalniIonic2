@@ -4,13 +4,13 @@ import {SessionDetailPage} from '../session-detail/session-detail';
 
 
 @Component({
-  templateUrl: 'build/pages/speaker-detail/speaker-detail.html'
+  templateUrl: 'build/pages/favorite-detail/favorite-detail.html'
 })
-export class SpeakerDetailPage {
-  speaker: any;
+export class FavoriteDetailPage {
+  favorite: any;
 
   constructor(private nav: NavController, private navParams: NavParams) {
-    this.speaker = this.navParams.data;
+    this.favorite = this.navParams.data;
   }
 
   goToSessionDetail(session) {

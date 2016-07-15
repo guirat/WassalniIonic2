@@ -35,10 +35,25 @@ var ConferenceData = (function () {
             });
         });
     };
+    ConferenceData.prototype.loadMap = function () {
+        var _this = this;
+        if (this.stationData) {
+            // already loaded data
+            return Promise.resolve(this.stationData);
+        }
+        // don't have the data yet
+        return new Promise(function (resolve) {
+            // We're using Angular Http provider to request the data,
+            // then on the response it'll map the JSON data to a parsed JS object.
+            // Next we process the data and resolve the promise with the new data.
+            _this.http.get('data/StationBus.json').subscribe(function (res) {
+                resolve(res.json());
+            });
+        });
+    };
     ConferenceData.prototype.processData = function (data) {
         // just some good 'ol JS fun with objects and arrays
         // build up the data by linking speakers to sessions
-        var _this = this;
         data.tracks = [];
         // loop through each day in the schedule
         data.schedule.forEach(function (day) {
@@ -46,34 +61,36 @@ var ConferenceData = (function () {
             day.groups.forEach(function (group) {
                 // loop through each session in the timeline group
                 group.sessions.forEach(function (session) {
-                    _this.processSession(data, session);
+                    //this.processSession(data, session);
                 });
             });
         });
         return data;
     };
-    ConferenceData.prototype.processSession = function (data, session) {
+    /*
+      processSession(data, session) {
         // loop through each speaker and load the speaker data
         // using the speaker name as the key
         session.speakers = [];
         if (session.speakerNames) {
-            session.speakerNames.forEach(function (speakerName) {
-                var speaker = data.speakers.find(function (s) { return s.name === speakerName; });
-                if (speaker) {
-                    session.speakers.push(speaker);
-                    speaker.sessions = speaker.sessions || [];
-                    speaker.sessions.push(session);
-                }
-            });
+          session.speakerNames.forEach(speakerName => {
+            let speaker = data.speakers.find(s => s.name === speakerName);
+            if (speaker) {
+              session.speakers.push(speaker);
+              speaker.sessions = speaker.sessions || [];
+              speaker.sessions.push(session);
+            }
+          });
         }
+    
         if (session.tracks) {
-            session.tracks.forEach(function (track) {
-                if (data.tracks.indexOf(track) < 0) {
-                    data.tracks.push(track);
-                }
-            });
+          session.tracks.forEach(track => {
+            if (data.tracks.indexOf(track) < 0) {
+              data.tracks.push(track);
+            }
+          });
         }
-    };
+      }*/
     ConferenceData.prototype.getTimeline = function (dayIndex, queryText, excludeTracks, segment) {
         var _this = this;
         if (queryText === void 0) { queryText = ''; }
@@ -135,9 +152,9 @@ var ConferenceData = (function () {
         // all tests must be true if it should not be hidden
         session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
     };
-    ConferenceData.prototype.getSpeakers = function () {
+    ConferenceData.prototype.getFavorites = function () {
         return this.load().then(function (data) {
-            return data.speakers.sort(function (a, b) {
+            return data.favorites.sort(function (a, b) {
                 var aName = a.name.split(' ').pop();
                 var bName = b.name.split(' ').pop();
                 return aName.localeCompare(bName);
@@ -150,7 +167,7 @@ var ConferenceData = (function () {
         });
     };
     ConferenceData.prototype.getMap = function () {
-        return this.load().then(function (data) {
+        return this.loadMap().then(function (data) {
             return data.map;
         });
     };

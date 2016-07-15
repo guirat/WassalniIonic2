@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Favorites</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content favorite-list">
+  <ion-card *ngFor=" let favorite of favorites" class="favorite">
+
+    <ion-card-header>
+   <ion-item>
+    <ion-avatar item-left>
+     <img src="img/nine.jpg">
+     </ion-avatar> 
+             {{favorite.name}}
+    </ion-item>
+    </ion-card-header>
+
+    <ion-card-content class="outer-content">
+      <ion-list>
+        <button ion-item>
+          <h3>Nearest bus</h3>
+        </button>
+      </ion-list>
+       <ion-list>
+        <button ion-item>
+          <h3>Shedule</h3>
+        </button>
+      </ion-list>
+    </ion-card-content>
+    <ion-item>  
+      <button (click)="goToFavoriteDetail(favorite)" clear item-right>
+        <ion-icon name="share"></ion-icon>
+        Delete
+      </button>
+    </ion-item>
+  </ion-card>
+</ion-content>

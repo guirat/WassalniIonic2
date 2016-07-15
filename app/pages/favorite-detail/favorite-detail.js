@@ -11,21 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var session_detail_1 = require('../session-detail/session-detail');
-var SpeakerDetailPage = (function () {
-    function SpeakerDetailPage(nav, navParams) {
+var FavoriteDetailPage = (function () {
+    function FavoriteDetailPage(nav, navParams) {
         this.nav = nav;
         this.navParams = navParams;
-        this.speaker = this.navParams.data;
+        this.favorite = this.navParams.data;
     }
-    SpeakerDetailPage.prototype.goToSessionDetail = function (session) {
+    FavoriteDetailPage.prototype.goToSessionDetail = function (session) {
         this.nav.push(session_detail_1.SessionDetailPage, session);
     };
-    SpeakerDetailPage = __decorate([
+    FavoriteDetailPage = __decorate([
         core_1.Component({
-            templateUrl: 'build/pages/speaker-detail/speaker-detail.html'
+            templateUrl: 'build/pages/favorite-detail/favorite-detail.html'
         }), 
         __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.NavParams])
-    ], SpeakerDetailPage);
-    return SpeakerDetailPage;
+    ], FavoriteDetailPage);
+    return FavoriteDetailPage;
 }());
-exports.SpeakerDetailPage = SpeakerDetailPage;
+exports.FavoriteDetailPage = FavoriteDetailPage;

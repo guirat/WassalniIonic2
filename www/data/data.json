@@ -216,98 +216,19 @@
     }
   ],
 
-
-  "speakers": [
+  "favorites": [
     {
-      "name": "Burt Bear",
-      "profilePic": "img/speakers/bear.jpg",
-      "twitter": "ionicframework",
-      "about": "Burt is a Bear.",
-      "location": "Everywhere"
+      "name": "Gremda"
     },
     {
-      "name": "Charlie Cheetah",
-      "profilePic": "img/speakers/cheetah.jpg",
-      "twitter": "ionicframework",
-      "about": "Charlie is a Cheetah.",
-      "location": "Everywhere"
+      "name": "Taniour"
     },
     {
-      "name": "Donald Duck",
-      "profilePic": "img/speakers/duck.jpg",
-      "twitter": "ionicframework",
-      "about": "Donald is a Duck.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Eva Eagle",
-      "profilePic": "img/speakers/eagle.jpg",
-      "twitter": "ionicframework",
-      "about": "Eva is an Eagle.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Ellie Elephant",
-      "profilePic": "img/speakers/elephant.jpg",
-      "twitter": "ionicframework",
-      "about": "Ellie is an Elephant.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Gino Giraffe",
-      "profilePic": "img/speakers/giraffe.jpg",
-      "twitter": "ionicframework",
-      "about": "Gino is a Giraffe.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Isabella Iguana",
-      "profilePic": "img/speakers/iguana.jpg",
-      "twitter": "ionicframework",
-      "about": "Isabella is an Iguana.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Karl Kitten",
-      "profilePic": "img/speakers/kitten.jpg",
-      "twitter": "ionicframework",
-      "about": "Karl is a Kitten.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Lionel Lion",
-      "profilePic": "img/speakers/lion.jpg",
-      "twitter": "ionicframework",
-      "about": "Lionel is a Lion.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Molly Mouse",
-      "profilePic": "img/speakers/mouse.jpg",
-      "twitter": "ionicframework",
-      "about": "Molly is a Mouse.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Paul Puppy",
-      "profilePic": "img/speakers/puppy.jpg",
-      "twitter": "ionicframework",
-      "about": "Paul is a Puppy.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Rachel Rabbit",
-      "profilePic": "img/speakers/rabbit.jpg",
-      "twitter": "ionicframework",
-      "about": "Rachel is a Rabbit.",
-      "location": "Everywhere"
-    },
-    {
-      "name": "Ted Turtle",
-      "profilePic": "img/speakers/turtle.jpg",
-      "twitter": "ionicframework",
-      "about": "Ted is a Turtle.",
-      "location": "Everywhere"
+      "name": "Lafran"
     }
-  ],
+    ,
+    {
+      "name": "Mahdia"
+    }
+  ]
 }

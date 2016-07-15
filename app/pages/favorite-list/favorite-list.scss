@@ -1,0 +1,18 @@
+
+.favorite-list {
+
+  ion-card.favorite ion-card-header .item {
+    padding: 12px;
+  }
+
+  ion-card.favorite ion-card-content .list {
+    margin: 0;
+  }
+
+  ion-card.favorite ion-card-header,
+  ion-card.favorite ion-card-content,
+  ion-card.favorite ion-card-content .list ion-item-content, {
+    padding: 0;
+  }
+  
+}

@@ -10,16 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var HomePage = (function () {
-    function HomePage(navController) {
-        this.navController = navController;
+var conference_data_1 = require('../../providers/conference-data');
+var session_detail_1 = require('../session-detail/session-detail');
+var FavoritePage = (function () {
+    function FavoritePage(nav, confData) {
+        var _this = this;
+        this.nav = nav;
+        this.favorites = [];
+        confData.getFavorites().then(function (favorites) {
+            _this.favorites = favorites;
+        });
     }
-    HomePage = __decorate([
+    FavoritePage.prototype.goToSessionDetail = function (session) {
+        this.nav.push(session_detail_1.SessionDetailPage, session);
+    };
+    FavoritePage = __decorate([
         core_1.Component({
-            templateUrl: 'build/pages/home/home.html'
+            templateUrl: 'build/pages/favorite-list/favorite-list.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
-    ], HomePage);
-    return HomePage;
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.ConferenceData])
+    ], FavoritePage);
+    return FavoritePage;
 }());
-exports.HomePage = HomePage;
+exports.FavoritePage = FavoritePage;
