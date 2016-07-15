@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, Page, ActionSheet} from 'ionic-angular';
-import {ConferenceData} from '../../providers/conference-data';
+import {TransportData} from '../../providers/transport-data';
 import {SpeakerDetailPage} from '../speaker-detail/speaker-detail';
 import {SessionDetailPage} from '../session-detail/session-detail';
 
@@ -12,8 +12,8 @@ export class SpeakerListPage {
   actionSheet: ActionSheet;
   speakers = [];
 
-  constructor(private nav: NavController, confData: ConferenceData) {
-    confData.getSpeakers().then(speakers => {
+  constructor(private nav: NavController, TransData: TransportData) {
+    TransData.getSpeakers().then(speakers => {
       this.speakers = speakers;
     });
   }

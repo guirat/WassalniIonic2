@@ -4,7 +4,7 @@ import {UserData} from './user-data';
 
 
 @Injectable()
-export class ConferenceData {
+export class TransportData {
   data: any;
   stationData:any;
   constructor(private http: Http, private user: UserData) {}

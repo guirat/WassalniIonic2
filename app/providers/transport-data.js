@@ -11,12 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var user_data_1 = require('./user-data');
-var ConferenceData = (function () {
-    function ConferenceData(http, user) {
+var TransportData = (function () {
+    function TransportData(http, user) {
         this.http = http;
         this.user = user;
     }
-    ConferenceData.prototype.load = function () {
+    TransportData.prototype.load = function () {
         var _this = this;
         if (this.data) {
             // already loaded data
@@ -35,7 +35,7 @@ var ConferenceData = (function () {
             });
         });
     };
-    ConferenceData.prototype.processData = function (data) {
+    TransportData.prototype.processData = function (data) {
         // just some good 'ol JS fun with objects and arrays
         // build up the data by linking speakers to sessions
         var _this = this;
@@ -52,7 +52,7 @@ var ConferenceData = (function () {
         });
         return data;
     };
-    ConferenceData.prototype.processSession = function (data, session) {
+    TransportData.prototype.processSession = function (data, session) {
         // loop through each speaker and load the speaker data
         // using the speaker name as the key
         session.speakers = [];
@@ -74,7 +74,7 @@ var ConferenceData = (function () {
             });
         }
     };
-    ConferenceData.prototype.getTimeline = function (dayIndex, queryText, excludeTracks, segment) {
+    TransportData.prototype.getTimeline = function (dayIndex, queryText, excludeTracks, segment) {
         var _this = this;
         if (queryText === void 0) { queryText = ''; }
         if (excludeTracks === void 0) { excludeTracks = []; }
@@ -99,7 +99,7 @@ var ConferenceData = (function () {
             return day;
         });
     };
-    ConferenceData.prototype.filterSession = function (session, queryWords, excludeTracks, segment) {
+    TransportData.prototype.filterSession = function (session, queryWords, excludeTracks, segment) {
         var matchesQueryText = false;
         if (queryWords.length) {
             // of any query word is in the session name than it passes the query test
@@ -135,7 +135,7 @@ var ConferenceData = (function () {
         // all tests must be true if it should not be hidden
         session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
     };
-    ConferenceData.prototype.getSpeakers = function () {
+    TransportData.prototype.getSpeakers = function () {
         return this.load().then(function (data) {
             return data.speakers.sort(function (a, b) {
                 var aName = a.name.split(' ').pop();
@@ -144,20 +144,20 @@ var ConferenceData = (function () {
             });
         });
     };
-    ConferenceData.prototype.getTracks = function () {
+    TransportData.prototype.getTracks = function () {
         return this.load().then(function (data) {
             return data.tracks.sort();
         });
     };
-    ConferenceData.prototype.getMap = function () {
+    TransportData.prototype.getMap = function () {
         return this.load().then(function (data) {
             return data.map;
         });
     };
-    ConferenceData = __decorate([
+    TransportData = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, user_data_1.UserData])
-    ], ConferenceData);
-    return ConferenceData;
+    ], TransportData);
+    return TransportData;
 }());
-exports.ConferenceData = ConferenceData;
+exports.TransportData = TransportData;

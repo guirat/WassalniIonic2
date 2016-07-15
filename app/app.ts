@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
-import {ConferenceData} from './providers/conference-data';
+import {TransportData} from './providers/transport-data';
 import {UserData} from './providers/user-data';
 import {AccountPage} from './pages/account/account';
 import {TabsPage} from './pages/tabs/tabs';
@@ -46,7 +46,7 @@ class ConferenceApp {
     private userData: UserData,
     private menu: MenuController,
     platform: Platform,
-    confData: ConferenceData
+    TransData: TransportData
   ) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
@@ -55,7 +55,7 @@ class ConferenceApp {
     });
 
     // load the conference data
-    confData.load();
+    TransData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
@@ -114,6 +114,6 @@ class ConferenceApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(ConferenceApp, [ConferenceData, UserData], {
+ionicBootstrap(ConferenceApp, [TransportData, UserData], {
   tabbarPlacement: 'bottom'
 });

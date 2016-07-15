@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var conference_data_1 = require('../../providers/conference-data');
+var conference_data_1 = require('../../providers/transport-data');
 var ionic_native_1 = require('ionic-native');
 var MapPage = (function () {
-    function MapPage(confData) {
-        this.confData = confData;
+    function MapPage(TransData) {
+        this.TransData = TransData;
     }
     MapPage.prototype.ionViewLoaded = function () {
         var lat;
@@ -29,7 +29,7 @@ var MapPage = (function () {
         var currlat = lng;
         var curentLocation = new google.maps.LatLng(lat, lng);
         var myLatlng = new google.maps.LatLng(lat, lng);
-        this.confData.getMap().then(function (mapData) {
+        this.TransData.getMap().then(function (mapData) {
             var mapEle = document.getElementById('map');
             var map = new google.maps.Map(mapEle, {
                 center: myLatlng,
@@ -58,7 +58,7 @@ var MapPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/map/map.html'
         }), 
-        __metadata('design:paramtypes', [conference_data_1.ConferenceData])
+        __metadata('design:paramtypes', [conference_data_1.TransportData])
     ], MapPage);
     return MapPage;
 }());

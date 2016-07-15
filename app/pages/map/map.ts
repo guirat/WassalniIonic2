@@ -1,17 +1,17 @@
 import {Component} from '@angular/core';
 import {Page} from 'ionic-angular';
-import {ConferenceData} from '../../providers/conference-data';
+import {TransportData} from '../../providers/transport-data';
 import {Geolocation} from 'ionic-native';
 
 @Component({
   templateUrl: 'build/pages/map/map.html'
 })
 export class MapPage {
-  constructor(private confData: ConferenceData) {}
+  constructor(private TransData: TransportData) {}
 
   ionViewLoaded() {
   
-    this.confData.getMap().then(mapData => {
+    this.TransData.getMap().then(mapData => {
       var currentPosition:google.maps.LatLng;
      let mapEle = document.getElementById('map');
      let map = new google.maps.Map(mapEle, {

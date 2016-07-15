@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var conference_data_1 = require('../../providers/conference-data');
+var conference_data_1 = require('../../providers/transport-data');
 var speaker_detail_1 = require('../speaker-detail/speaker-detail');
 var session_detail_1 = require('../session-detail/session-detail');
 var SpeakerListPage = (function () {
-    function SpeakerListPage(nav, confData) {
+    function SpeakerListPage(nav, TransData) {
         var _this = this;
         this.nav = nav;
         this.speakers = [];
-        confData.getSpeakers().then(function (speakers) {
+        TransData.getSpeakers().then(function (speakers) {
             _this.speakers = speakers;
         });
     }
@@ -65,7 +65,7 @@ var SpeakerListPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/speaker-list/speaker-list.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.ConferenceData])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.TransportData])
     ], SpeakerListPage);
     return SpeakerListPage;
 }());
