@@ -1,17 +1,13 @@
 import {Component} from '@angular/core';
-// import {Page} from 'ionic-angular';
+import {Page} from 'ionic-angular';
 import {ConferenceData} from '../../providers/conference-data';
 import {Geolocation} from 'ionic-native';
-import {App, Page, Modal, Alert, NavController, ItemSliding, List} from 'ionic-angular';
-import {ScheduleFilterPage} from '../schedule-filter/schedule-filter';
-
 
 @Component({
   templateUrl: 'build/pages/map/map.html'
 })
 export class MapPage {
-  excludeTracks = [];
-  constructor(private confData: ConferenceData, private nav: NavController) {}
+  constructor(private confData: ConferenceData) {}
 
   ionViewLoaded() {
   
@@ -47,14 +43,14 @@ export class MapPage {
     
       mapData.forEach(markerData => {
         let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.STOP_NAME}</h5>`
+          content: `<h5>${markerData.name}</h5>`
         });
 
         let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON),
+          position: markerData,
           icon:'img/BusStationMarker.png',
           map: map,
-          title: markerData.STOP_NAME
+          title: markerData.name
         });
 
         marker.addListener('click', () => {
@@ -67,18 +63,5 @@ export class MapPage {
       });
 
     });
-  }
-
-  presentFilter() {
-    let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
-    this.nav.present(modal);
-
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.excludeTracks = data;
-        //this.updateSchedule();
-      }
-    });
-
   }
 }
