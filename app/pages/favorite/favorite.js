@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var conference_data_1 = require('../../providers/conference-data');
+var transport_data_1 = require('../../providers/transport-data');
 var session_detail_1 = require('../session-detail/session-detail');
 var FavoritePage = (function () {
-    function FavoritePage(nav, confData) {
+    function FavoritePage(nav, transData) {
         var _this = this;
         this.nav = nav;
         this.favorites = [];
-        confData.getFavorites().then(function (favorites) {
+        transData.getFavorites().then(function (favorites) {
             _this.favorites = favorites;
         });
     }
@@ -28,7 +28,7 @@ var FavoritePage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/favorite-list/favorite-list.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.ConferenceData])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, transport_data_1.TransportData])
     ], FavoritePage);
     return FavoritePage;
 }());

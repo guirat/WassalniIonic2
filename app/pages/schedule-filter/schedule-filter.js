@@ -10,17 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var conference_data_1 = require('../../providers/conference-data');
+var transport_data_1 = require('../../providers/transport-data');
 var ScheduleFilterPage = (function () {
-    function ScheduleFilterPage(confData, navParams, viewCtrl) {
+    function ScheduleFilterPage(TransData, navParams, viewCtrl) {
         var _this = this;
-        this.confData = confData;
+        this.TransData = TransData;
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
         this.tracks = [];
         // passed in array of track names that should be excluded (unchecked)
         var excludedTrackNames = this.navParams.data;
-        this.confData.getTracks().then(function (trackNames) {
+        this.TransData.getTracks().then(function (trackNames) {
             trackNames.forEach(function (trackName) {
                 _this.tracks.push({
                     name: trackName,
@@ -49,7 +49,7 @@ var ScheduleFilterPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/schedule-filter/schedule-filter.html'
         }), 
-        __metadata('design:paramtypes', [conference_data_1.ConferenceData, ionic_angular_1.NavParams, ionic_angular_1.ViewController])
+        __metadata('design:paramtypes', [transport_data_1.TransportData, ionic_angular_1.NavParams, ionic_angular_1.ViewController])
     ], ScheduleFilterPage);
     return ScheduleFilterPage;
 }());

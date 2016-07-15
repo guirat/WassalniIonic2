@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, Page, ActionSheet} from 'ionic-angular';
-import {ConferenceData} from '../../providers/conference-data';
+import {TransportData} from '../../providers/transport-data';
 import {FavoriteDetailPage} from '../favorite-detail/favorite-detail';
 import {SessionDetailPage} from '../session-detail/session-detail';
 
@@ -12,8 +12,8 @@ export class FavoritePage {
   actionSheet: ActionSheet;
   favorites = [];
 
-  constructor(private nav: NavController, confData: ConferenceData) {
-    confData.getFavorites().then(favorites => {
+  constructor(private nav: NavController, transData: TransportData) {
+    transData.getFavorites().then(favorites => {
       this.favorites = favorites;
     });
   }

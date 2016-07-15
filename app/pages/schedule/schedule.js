@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var conference_data_1 = require('../../providers/conference-data');
+var transport_data_1 = require('../../providers/transport-data');
 var user_data_1 = require('../../providers/user-data');
 var schedule_filter_1 = require('../schedule-filter/schedule-filter');
 var session_detail_1 = require('../session-detail/session-detail');
 var SchedulePage = (function () {
-    function SchedulePage(app, nav, confData, user) {
+    function SchedulePage(app, nav, TransData, user) {
         this.app = app;
         this.nav = nav;
-        this.confData = confData;
+        this.TransData = TransData;
         this.user = user;
         this.dayIndex = 0;
         this.queryText = '';
@@ -37,7 +37,7 @@ var SchedulePage = (function () {
         var _this = this;
         // Close any open sliding items when the schedule updates
         this.scheduleList && this.scheduleList.closeSlidingItems();
-        this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(function (data) {
+        this.TransData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(function (data) {
             _this.shownSessions = data.shownSessions;
             _this.groups = data.groups;
         });
@@ -119,7 +119,7 @@ var SchedulePage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/schedule/schedule.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.App, ionic_angular_1.NavController, conference_data_1.ConferenceData, user_data_1.UserData])
+        __metadata('design:paramtypes', [ionic_angular_1.App, ionic_angular_1.NavController, transport_data_1.TransportData, user_data_1.UserData])
     ], SchedulePage);
     return SchedulePage;
 }());

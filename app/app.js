@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var ionic_native_1 = require('ionic-native');
-var conference_data_1 = require('./providers/conference-data');
+var transport_data_1 = require('./providers/transport-data');
 var user_data_1 = require('./providers/user-data');
 var account_1 = require('./pages/account/account');
 var tabs_1 = require('./pages/tabs/tabs');
@@ -96,7 +96,7 @@ var ConferenceApp = (function () {
         core_1.Component({
             templateUrl: 'build/app.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.Events, user_data_1.UserData, ionic_angular_1.MenuController, ionic_angular_1.Platform, conference_data_1.ConferenceData])
+        __metadata('design:paramtypes', [ionic_angular_1.Events, user_data_1.UserData, ionic_angular_1.MenuController, ionic_angular_1.Platform, transport_data_1.TransportData])
     ], ConferenceApp);
     return ConferenceApp;
 }());
@@ -108,4 +108,4 @@ var ConferenceApp = (function () {
 // Place the tabs on the bottom for all platforms
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
-ionic_angular_1.ionicBootstrap(ConferenceApp, [conference_data_1.ConferenceData, user_data_1.UserData], { tabbarPlacement: 'bottom' });
+ionic_angular_1.ionicBootstrap(ConferenceApp, [transport_data_1.TransportData, user_data_1.UserData], { tabbarPlacement: 'bottom' });
