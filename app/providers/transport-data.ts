@@ -55,7 +55,7 @@ export class TransportData {
       day.groups.forEach(group => {
         // loop through each session in the timeline group
         group.sessions.forEach(session => {
-          //this.processSession(data, session);
+          this.processSession(data, session);
         });
       });
     });
@@ -66,6 +66,7 @@ export class TransportData {
   processSession(data, session) {
     // loop through each speaker and load the speaker data
     // using the speaker name as the key
+    /*
     session.speakers = [];
     if (session.speakerNames) {
       session.speakerNames.forEach(speakerName => {
@@ -76,7 +77,7 @@ export class TransportData {
           speaker.sessions.push(session);
         }
       });
-    }
+    }*/
 
     if (session.tracks) {
       session.tracks.forEach(track => {
