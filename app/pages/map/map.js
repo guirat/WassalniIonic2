@@ -11,33 +11,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var transport_data_1 = require('../../providers/transport-data');
 var ionic_native_1 = require('ionic-native');
+var ionic_angular_1 = require('ionic-angular');
+var schedule_filter_1 = require('../schedule-filter/schedule-filter');
 var MapPage = (function () {
-    function MapPage(confData) {
-        this.confData = confData;
+    function MapPage(transData, nav) {
+        this.transData = transData;
+        this.nav = nav;
+        // filtre
+        this.excludeTracks = [];
     }
     MapPage.prototype.ionViewLoaded = function () {
-        this.confData.getMap().then(function (mapData) {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        // show map
+        this.transData.getMap().then(function (mapData) {
+            var currentPosition;
             var mapEle = document.getElementById('map');
             var map = new google.maps.Map(mapEle, {
                 zoom: 16
             });
+            //current position   
+            var markerCurrentPostion = new google.maps.Marker({
+                position: map.getCenter(),
+                icon: 'img/BusStationMarker.png',
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: "I'm here"
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content: "I'm here"
+            });
+            infowindow.open(map, markerCurrentPostion);
             var options = { timeout: 10000, enableHighAccuracy: true };
             ionic_native_1.Geolocation.getCurrentPosition(options).then(function (position) {
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
-                map.setCenter(new google.maps.LatLng(lat, lng));
+                currentPosition = new google.maps.LatLng(lat, lng);
+                map.setCenter(currentPosition);
+                markerCurrentPostion.setPosition(currentPosition);
             }, function (err) {
                 console.log('errrrrrrreur');
             });
+            // mark stations
             mapData.forEach(function (markerData) {
                 var infoWindow = new google.maps.InfoWindow({
-                    content: "<h5>" + markerData.name + "</h5>"
+                    content: "<h5>" + markerData.STOP_NAME + "</h5>"
                 });
                 var marker = new google.maps.Marker({
-                    position: markerData,
+                    position: new google.maps.LatLng(markerData.STOP_LAT, markerData.STOP_LON),
                     icon: 'img/BusStationMarker.png',
                     map: map,
-                    title: markerData.name
+                    title: markerData.STOP_NAME
                 });
                 marker.addListener('click', function () {
                     infoWindow.open(map, marker);
@@ -46,13 +70,34 @@ var MapPage = (function () {
             google.maps.event.addListenerOnce(map, 'idle', function () {
                 mapEle.classList.add('show-map');
             });
+            directionsService.route({
+                origin: new google.maps.LatLng(34.2, 10),
+                destination: "los angeles, ca",
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function (response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    console.log(response);
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            directionsDisplay.setMap(map);
+        });
+    };
+    MapPage.prototype.presentFilter = function () {
+        var _this = this;
+        var modal = ionic_angular_1.Modal.create(schedule_filter_1.ScheduleFilterPage, this.excludeTracks);
+        this.nav.present(modal);
+        modal.onDismiss(function (data) {
+            if (data) {
+                _this.excludeTracks = data;
+            }
         });
     };
     MapPage = __decorate([
         core_1.Component({
             templateUrl: 'build/pages/map/map.html'
         }), 
-        __metadata('design:paramtypes', [transport_data_1.TransportData])
+        __metadata('design:paramtypes', [transport_data_1.TransportData, ionic_angular_1.NavController])
     ], MapPage);
     return MapPage;
 }());

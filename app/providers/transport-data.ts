@@ -62,7 +62,7 @@ export class TransportData {
 
     return data;
   }
-/*
+
   processSession(data, session) {
     // loop through each speaker and load the speaker data
     // using the speaker name as the key
@@ -85,7 +85,7 @@ export class TransportData {
         }
       });
     }
-  }*/
+  }
 
   getTimeline(dayIndex, queryText = '', excludeTracks = [], segment = 'all') {
     return this.load().then(data => {

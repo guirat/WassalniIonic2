@@ -14,5 +14,12 @@
 </ion-header>
 
 <ion-content class="map-page">
+<ion-toolbar no-border-top>
+    <ion-searchbar primary
+                   [(ngModel)]="queryText"
+                   (ionInput)="updateSchedule()"
+                   placeholder="Search">
+    </ion-searchbar>
+  </ion-toolbar>
   <div id="map"></div>
 </ion-content>

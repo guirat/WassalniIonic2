@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NavParams, ViewController} from 'ionic-angular';
 import {TransportData} from '../../providers/transport-data';
 
-
 @Component({
   templateUrl: 'build/pages/schedule-filter/schedule-filter.html'
 })

@@ -67,30 +67,28 @@ var TransportData = (function () {
         });
         return data;
     };
-    /*
-      processSession(data, session) {
+    TransportData.prototype.processSession = function (data, session) {
         // loop through each speaker and load the speaker data
         // using the speaker name as the key
         session.speakers = [];
         if (session.speakerNames) {
-          session.speakerNames.forEach(speakerName => {
-            let speaker = data.speakers.find(s => s.name === speakerName);
-            if (speaker) {
-              session.speakers.push(speaker);
-              speaker.sessions = speaker.sessions || [];
-              speaker.sessions.push(session);
-            }
-          });
+            session.speakerNames.forEach(function (speakerName) {
+                var speaker = data.speakers.find(function (s) { return s.name === speakerName; });
+                if (speaker) {
+                    session.speakers.push(speaker);
+                    speaker.sessions = speaker.sessions || [];
+                    speaker.sessions.push(session);
+                }
+            });
         }
-    
         if (session.tracks) {
-          session.tracks.forEach(track => {
-            if (data.tracks.indexOf(track) < 0) {
-              data.tracks.push(track);
-            }
-          });
+            session.tracks.forEach(function (track) {
+                if (data.tracks.indexOf(track) < 0) {
+                    data.tracks.push(track);
+                }
+            });
         }
-      }*/
+    };
     TransportData.prototype.getTimeline = function (dayIndex, queryText, excludeTracks, segment) {
         var _this = this;
         if (queryText === void 0) { queryText = ''; }
