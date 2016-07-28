@@ -21,8 +21,15 @@ var MapPage = (function () {
         this.excludeTracks = [];
     }
     MapPage.prototype.ionViewLoaded = function () {
+        var _this = this;
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
+        var address;
+        var StationAddress;
+        this.getAddress(34.82677034, 10.75931639).then(function (data) {
+            StationAddress = data[0].formatted_address;
+            console.log('StationAddress:   ' + StationAddress);
+        });
         // show map
         this.transData.getMap().then(function (mapData) {
             var currentPosition;
@@ -49,6 +56,21 @@ var MapPage = (function () {
                 currentPosition = new google.maps.LatLng(lat, lng);
                 map.setCenter(currentPosition);
                 markerCurrentPostion.setPosition(currentPosition);
+                //// trace route
+                _this.getAddress(position.coords.latitude, position.coords.longitude).then(function (data) {
+                    address = data[0].formatted_address;
+                    directionsService.route({
+                        origin: 'Rue Sidi Lakhmi, Sfax, Tunisie',
+                        destination: StationAddress,
+                        travelMode: google.maps.TravelMode.DRIVING
+                    }, function (response, status) {
+                        if (status === google.maps.DirectionsStatus.OK) {
+                            console.log(response);
+                            directionsDisplay.setDirections(response);
+                        }
+                    });
+                    directionsDisplay.setMap(map);
+                });
             }, function (err) {
                 console.log('errrrrrrreur');
             });
@@ -70,17 +92,7 @@ var MapPage = (function () {
             google.maps.event.addListenerOnce(map, 'idle', function () {
                 mapEle.classList.add('show-map');
             });
-            directionsService.route({
-                origin: new google.maps.LatLng(34.2, 10),
-                destination: "los angeles, ca",
-                travelMode: google.maps.TravelMode.DRIVING
-            }, function (response, status) {
-                if (status === google.maps.DirectionsStatus.OK) {
-                    console.log(response);
-                    directionsDisplay.setDirections(response);
-                }
-            });
-            directionsDisplay.setMap(map);
+            //traceroute
         });
     };
     MapPage.prototype.presentFilter = function () {
@@ -91,6 +103,20 @@ var MapPage = (function () {
             if (data) {
                 _this.excludeTracks = data;
             }
+        });
+    };
+    //getAddress
+    MapPage.prototype.getAddress = function (latitude, longitude) {
+        var center = new google.maps.LatLng(latitude, longitude);
+        return new Promise(function (resolve, reject) {
+            new google.maps.Geocoder().geocode({ 'location': center }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resolve(results);
+                }
+                else {
+                    reject(status);
+                }
+            });
         });
     };
     MapPage = __decorate([

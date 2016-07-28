@@ -54,6 +54,7 @@ var TransportData = (function () {
     TransportData.prototype.processData = function (data) {
         // just some good 'ol JS fun with objects and arrays
         // build up the data by linking speakers to sessions
+        var _this = this;
         data.tracks = [];
         // loop through each day in the schedule
         data.schedule.forEach(function (day) {
@@ -61,7 +62,7 @@ var TransportData = (function () {
             day.groups.forEach(function (group) {
                 // loop through each session in the timeline group
                 group.sessions.forEach(function (session) {
-                    //this.processSession(data, session);
+                    _this.processSession(data, session);
                 });
             });
         });
@@ -70,17 +71,18 @@ var TransportData = (function () {
     TransportData.prototype.processSession = function (data, session) {
         // loop through each speaker and load the speaker data
         // using the speaker name as the key
+        /*
         session.speakers = [];
         if (session.speakerNames) {
-            session.speakerNames.forEach(function (speakerName) {
-                var speaker = data.speakers.find(function (s) { return s.name === speakerName; });
-                if (speaker) {
-                    session.speakers.push(speaker);
-                    speaker.sessions = speaker.sessions || [];
-                    speaker.sessions.push(session);
-                }
-            });
-        }
+          session.speakerNames.forEach(speakerName => {
+            let speaker = data.speakers.find(s => s.name === speakerName);
+            if (speaker) {
+              session.speakers.push(speaker);
+              speaker.sessions = speaker.sessions || [];
+              speaker.sessions.push(session);
+            }
+          });
+        }*/
         if (session.tracks) {
             session.tracks.forEach(function (track) {
                 if (data.tracks.indexOf(track) < 0) {

@@ -14,22 +14,16 @@ export class MapPage {
   ionViewLoaded() {
       var directionsService = new google.maps.DirectionsService;
       var directionsDisplay = new google.maps.DirectionsRenderer; 
-      var address:any;
-      var StationAddress: any;
-
-        this.getAddress(34.82677034,10.75931639).then((data) => {
-          StationAddress = data[0].formatted_address;
-          console.log('StationAddress:   '+StationAddress);
-        });
-
+   
     // show map
     this.transData.getMap().then(mapData => {
      var currentPosition:google.maps.LatLng;
+     var currentPos:string;
      let mapEle = document.getElementById('map');
      let map = new google.maps.Map(mapEle, {
         zoom: 16
       });
-
+  
     //current position   
       let markerCurrentPostion = new google.maps.Marker({
           position: map.getCenter(),
@@ -48,38 +42,22 @@ export class MapPage {
       Geolocation.getCurrentPosition(options).then((position) => {
          let lat = position.coords.latitude;
          let lng = position.coords.longitude;
-
+          currentPos=lat+","+lng;
          currentPosition=new google.maps.LatLng(lat,lng);
           map.setCenter(currentPosition);
-          markerCurrentPostion.setPosition(currentPosition);
-
-       //// trace route
-          this.getAddress(position.coords.latitude, position.coords.longitude).then((data) => {
-           address = data[0].formatted_address;
-           directionsService.route({
-           origin: 'Rue Sidi Lakhmi, Sfax, Tunisie' ,
-           destination:StationAddress,
-            travelMode: google.maps.TravelMode.DRIVING
-             }, function(response, status) {
-                if (status === google.maps.DirectionsStatus.OK) {
-                console.log(response);
-                directionsDisplay.setDirections(response);
-                } 
-              });
-              directionsDisplay.setMap(map);
-             });
+          markerCurrentPostion.setPosition(currentPosition);   
              }, (err) => {
               console.log('errrrrrrreur');
                 });
-    
+
       // mark stations
       mapData.forEach(markerData => {
         let infoWindow = new google.maps.InfoWindow({
           content: `<h5>${markerData.STOP_NAME}</h5>`
         });
-
+         let pos=new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON);
         let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON),
+          position:pos,
           icon:'img/BusStationMarker.png',
           map: map,
           title: markerData.STOP_NAME
@@ -87,17 +65,30 @@ export class MapPage {
 
         marker.addListener('click', () => {
           infoWindow.open(map, marker);
+          //// trace route
+           let dest =markerData.STOP_LAT+","+markerData.STOP_LON; 
+          
+            directionsService.route({
+            origin:currentPos,
+            destination:dest,
+            travelMode: google.maps.TravelMode.WALKING
+             }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                console.log(response);
+                directionsDisplay.setDirections(response);
+                } 
+              });
+              directionsDisplay.setMap(map);
+             }); 
         });
-      });
    
         google.maps.event.addListenerOnce(map, 'idle', () => {
         mapEle.classList.add('show-map');
       });
-    //traceroute
 
     });
   }
-
+  
     // filtre
     excludeTracks = [];
    presentFilter() {
@@ -126,6 +117,5 @@ export class MapPage {
       });
     });
   }
-  
-s
+
 }
