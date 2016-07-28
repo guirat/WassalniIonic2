@@ -1,4 +1,6 @@
 .map-page ion-content {
+  
+  position: relative;
   background: rgb(229, 227, 223);
 }
 
@@ -11,4 +13,26 @@
 
 .map-page #map.show-map {
   opacity: 1;
+}
+
+.map-page #timer {
+	border-color: #fb6f02;
+	border-style: solid;
+	border-width: 0.15em;
+	text-align: center;
+    vertical-align: middle;
+    line-height: 2.5em;
+    color: white;
+    font-size: 2.5em;
+	position: absolute;
+	opacity: 0.9;
+	bottom: 0.2em;
+	right: 0;
+	left: 0;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border-radius: 50%;
+	background: #fbbf02;
+	z-index: 1;
 }

@@ -27,7 +27,7 @@ export class MapPage {
     //current position   
       let markerCurrentPostion = new google.maps.Marker({
           position: map.getCenter(),
-          icon:'img/BusStationMarker.png',
+          icon:'img/yourlocation.png',
           map: map,
           animation: google.maps.Animation.DROP,
           title: "I'm here"
@@ -55,10 +55,18 @@ export class MapPage {
         let infoWindow = new google.maps.InfoWindow({
           content: `<h5>${markerData.STOP_NAME}</h5>`
         });
-         let pos=new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON);
+/*         let pos=new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON);
+*/       
+        var busstop = {
+            url: 'img/busstop.png',
+            // size: new google.maps.Size(20, 47),
+            // origin: new google.maps.Point(20, 0),
+            // anchor: new google.maps.Point(0, 0)
+          };
+
         let marker = new google.maps.Marker({
-          position:pos,
-          icon:'img/BusStationMarker.png',
+          position: new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON),
+          icon:busstop,
           map: map,
           title: markerData.STOP_NAME
         });
