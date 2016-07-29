@@ -14,17 +14,20 @@ export class MapPage {
   ionViewLoaded() {
       var directionsService = new google.maps.DirectionsService;
       var directionsDisplay = new google.maps.DirectionsRenderer; 
-   
-    // show map
-    this.transData.getMap().then(mapData => {
-     var currentPosition:google.maps.LatLng;
-     var currentPos:string;
-     let mapEle = document.getElementById('map');
-     let map = new google.maps.Map(mapEle, {
+      let mapEle = document.getElementById('map');
+      let map = new google.maps.Map(mapEle, {
         zoom: 16
       });
-  
+      let dest:string ;
+      var currentPos:string;
+
+    // show map
+    this.transData.getMap().then(mapData => {
+    var currentPosition:google.maps.LatLng;
+    
     //current position   
+
+
       let markerCurrentPostion = new google.maps.Marker({
           position: map.getCenter(),
           icon:'img/yourlocation.png',
@@ -37,8 +40,24 @@ export class MapPage {
       });
       infowindow.open(map,markerCurrentPostion);
       let options = {timeout: 10000, enableHighAccuracy: true};
+/*
+navigator.geolocation.watchPosition(
+    function (position) {
+        setMarkerPosition(
+            currentPositionMarker,
+            position
+        );
+    });
 
-   
+function setMarkerPosition(marker, position) {
+    marker.setPosition(
+        new google.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude)
+    );
+}
+*/
+
       Geolocation.getCurrentPosition(options).then((position) => {
          let lat = position.coords.latitude;
          let lng = position.coords.longitude;
@@ -49,14 +68,20 @@ export class MapPage {
              }, (err) => {
               console.log('errrrrrrreur');
                 });
+   
+         Geolocation.watchPosition((position)=>{
+              markerCurrentPostion.setPosition( new google.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude)
+    );
+     }
+    );
 
-      // mark stations
-      mapData.forEach(markerData => {
-        let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.STOP_NAME}</h5>`
-        });
-/*         let pos=new google.maps.LatLng(markerData.STOP_LAT,markerData.STOP_LON);
-*/       
+      //  stations markers
+
+         let infoWindow = new google.maps.InfoWindow();
+          mapData.forEach(markerData => {
+     
         var busstop = {
             url: 'img/busstop.png',
             // size: new google.maps.Size(20, 47),
@@ -71,12 +96,16 @@ export class MapPage {
           title: markerData.STOP_NAME
         });
 
+
         marker.addListener('click', () => {
+
+               infoWindow.setContent(`<h5>${markerData.STOP_NAME}</h5>`);
           infoWindow.open(map, marker);
           //// trace route
-           let dest =markerData.STOP_LAT+","+markerData.STOP_LON; 
-          
-            directionsService.route({
+
+            dest=markerData.STOP_LAT+","+markerData.STOP_LON; 
+
+        /*    directionsService.route({
             origin:currentPos,
             destination:dest,
             travelMode: google.maps.TravelMode.WALKING
@@ -86,7 +115,43 @@ export class MapPage {
                 directionsDisplay.setDirections(response);
                 } 
               });
-              directionsDisplay.setMap(map);
+              directionsDisplay.setMap(map);*/
+var request = {
+    origin: currentPos,
+    destination: dest,
+    travelMode: google.maps.TravelMode.WALKING,
+    provideRouteAlternatives: true,
+  };
+  
+   directions.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      renderer.setDirections(response);
+      renderer.setMap(map);
+ var legs = response.routes[0].legs;
+  var i,j,k;
+  for (i = 0; i < legs.length; i++) {
+    var steps = legs[i].steps;
+    for (j = 0; j < steps.length; j++) {
+      var nextSegment = steps[j].path;
+            var stepPolyline = new google.maps.Polyline(polylineOptions);
+
+      if (steps[j].travel_mode == google.maps.TravelMode.WALKING) {
+        stepPolyline.setOptions(walkingPolylineOptions)
+      }
+      for (k = 0; k < nextSegment.length; k++) {
+        stepPolyline.getPath().push(nextSegment[k]);
+      }
+      stepPolyline.setMap(map);
+    }
+  }
+
+    } else {
+      renderer.setMap(null);
+      renderer.setPanel(null);
+    }
+  });
+
+
              }); 
         });
    
@@ -95,8 +160,65 @@ export class MapPage {
       });
 
     });
+
+
+
+var renderer = new google.maps.DirectionsRenderer({
+  suppressPolylines: true,
+  polylineOptions: {
+    strokeColor: '#C83939',
+    strokeOpacity:0,
+    strokeWeight: 0,
+    icons: [{
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: '#C83939',
+        scale:3,
+        strokeOpacity: 1,
+        fillOpacity: 4,
+      },
+      offset: '0',
+      repeat: '15px'
+    }]
   }
-  
+});
+var directions = new google.maps.DirectionsService();
+var request = {
+    origin: currentPos,
+    destination: dest,
+    travelMode: google.maps.TravelMode.WALKING,
+    provideRouteAlternatives: true,
+  };
+
+ // 
+        // option renderDirectionsPolylines
+ 
+var walkingPolylineOptions = {
+  strokeColor: '#4F66F5',
+  strokeOpacity:0,
+  strokeWeight:0,
+  icons: [{
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: '#4F66F5',
+      fillOpacity: 1,
+      scale: 2,
+      strokeColor: '#4F66F5',
+      strokeOpacity: 1,
+    },
+    offset: '0',
+    repeat: '10px'
+  }]
+};
+         var polylineOptions = {
+  strokeColor: '#4F66F5',
+  strokeOpacity: 1,
+  strokeWeight: 4
+};
+ 
+
+  }
+    
     // filtre
     excludeTracks = [];
    presentFilter() {
