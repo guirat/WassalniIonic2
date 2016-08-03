@@ -64,18 +64,22 @@ function setMarkerPosition(marker, position) {
           currentPos=lat+","+lng;
          currentPosition=new google.maps.LatLng(lat,lng);
           map.setCenter(currentPosition);
-          markerCurrentPostion.setPosition(currentPosition);   
+          markerCurrentPostion.setPosition(currentPosition); 
+           // watch position
+            var watchId = navigator.geolocation.watchPosition((location)=>{
+        var myLatlng = new google.maps.LatLng(location.coords.latitude,location.coords.longitude);
+        map.setCenter(myLatlng);
+        map.setZoom(15);
+            //show current location on map
+        markerCurrentPostion.setPosition(myLatlng);
+
+        navigator.geolocation.clearWatch(watchId);
+
+         });   
              }, (err) => {
               console.log('errrrrrrreur');
                 });
-   
-         Geolocation.watchPosition((position)=>{
-              markerCurrentPostion.setPosition( new google.maps.LatLng(
-            position.coords.latitude,
-            position.coords.longitude)
-    );
-     }
-    );
+
 
       //  stations markers
 
@@ -134,7 +138,6 @@ var request = {
     for (j = 0; j < steps.length; j++) {
       var nextSegment = steps[j].path;
             var stepPolyline = new google.maps.Polyline(polylineOptions);
-
       if (steps[j].travel_mode == google.maps.TravelMode.WALKING) {
         stepPolyline.setOptions(walkingPolylineOptions)
       }
@@ -215,9 +218,41 @@ var walkingPolylineOptions = {
   strokeOpacity: 1,
   strokeWeight: 4
 };
- 
+ // Define the symbol, using one of the predefined paths ('CIRCLE')
+  // supplied by the Google Maps JavaScript API.
+  var lineSymbol = {
+    path: google.maps.SymbolPath.CIRCLE,
+    icon:'img/buslocation.png',
+    scale: 4,
+    strokeColor: '#4F66F5'
+  };
+
+  // Create the polyline and add the symbol to it via the 'icons' property.
+  var line = new google.maps.Polyline({
+    path: [{lat:34.739681, lng: 10.759285}, {lat: 34.743121,  lng:10.755351},{lat:34.750237,lng: 10.749523
+}],
+
+    icons: [{
+      icon: lineSymbol,
+      offset: '100%'
+    }],
+    map: map
+  });
+
+  this.animateCircle(line);
+
 
   }
+  animateCircle(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 20);
+}
     
     // filtre
     excludeTracks = [];
